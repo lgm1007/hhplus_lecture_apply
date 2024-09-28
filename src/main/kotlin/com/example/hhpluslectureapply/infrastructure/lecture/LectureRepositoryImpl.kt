@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class LectureRepositoryImpl : LectureRepository {
-	override fun findById(id: Long): Lecture {
+	override fun findById(id: Long): Lecture? {
 		TODO("Not yet implemented")
 	}
 }
