@@ -12,4 +12,11 @@ class LectureApplyHistoryService(
 	fun isExistLectureApplyHistory(userEmail: String): Boolean {
 		return lectureApplyHistoryRepository.findByUserEmail(userEmail) != null
 	}
+
+	/**
+	 * 특강 ID로 특강 신청 내역 개수 조회 메서드
+	 */
+	fun getAllLectureApplyHistoryInfosByLectureId(lectureId: Long): Int {
+		return lectureApplyHistoryRepository.countByLectureId(lectureId)
+	}
 }

@@ -4,4 +4,6 @@ import com.example.hhpluslectureapply.infrastructure.lecture.entity.LectureApply
 
 interface LectureApplyHistoryRepository {
 	fun findByUserEmail(userEmail: String): LectureApplyHistory?
+
+	fun countByLectureId(lectureId: Long): Int
 }

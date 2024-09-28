@@ -9,4 +9,8 @@ class LectureApplyHistoryRepositoryImpl : LectureApplyHistoryRepository {
 	override fun findByUserEmail(userEmail: String): LectureApplyHistory? {
 		TODO("Not yet implemented")
 	}
+
+	override fun countByLectureId(lectureId: Long): Int {
+		TODO("Not yet implemented")
+	}
 }
