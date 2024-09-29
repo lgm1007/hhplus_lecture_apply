@@ -5,12 +5,14 @@ import com.example.hhpluslectureapply.infrastructure.lecture.entity.LectureApply
 import org.springframework.stereotype.Repository
 
 @Repository
-class LectureApplyHistoryRepositoryImpl : LectureApplyHistoryRepository {
+class LectureApplyHistoryRepositoryImpl(
+	private val jpaRepository: LectureApplyHistoryJpaRepository
+) : LectureApplyHistoryRepository {
 	override fun findByUserEmail(userEmail: String): LectureApplyHistory? {
-		TODO("Not yet implemented")
+		return jpaRepository.findByUserEmail(userEmail)
 	}
 
 	override fun countByLectureId(lectureId: Long): Int {
-		TODO("Not yet implemented")
+		return jpaRepository.countByLectureId(lectureId).toInt()
 	}
 }
