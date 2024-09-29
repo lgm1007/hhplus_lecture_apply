@@ -1,5 +1,6 @@
 package com.example.hhpluslectureapply.domain.lecture
 
+import com.example.hhpluslectureapply.exception.LectureException
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
