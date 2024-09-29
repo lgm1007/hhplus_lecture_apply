@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository
 class LectureApplyHistoryRepositoryImpl(
 	private val jpaRepository: LectureApplyHistoryJpaRepository
 ) : LectureApplyHistoryRepository {
-	override fun findByUserEmail(userEmail: String): LectureApplyHistory? {
-		return jpaRepository.findByUserEmail(userEmail)
+	override fun findByLectureIdAndUserEmail(lectureId: Long, userEmail: String): LectureApplyHistory? {
+		return jpaRepository.findByLectureIdAndUserEmail(lectureId, userEmail)
 	}
 
 	override fun countByLectureId(lectureId: Long): Int {

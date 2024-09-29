@@ -24,10 +24,14 @@ class LectureApplyHistoryServiceUnitTest {
 	@DisplayName("특정 사용자 이메일의 특강 신청 내역 존재 여부가 있는 상황에 대한 테스트")
 	fun isExistLectureApplyHistoryByUserEmailY() {
 		doAnswer { invocation ->
-			LectureApplyHistory(1L, 1L, invocation.getArgument(0))
-		}.`when`(lectureApplyHistoryRepository).findByUserEmail(any())
+			LectureApplyHistory(
+				invocation.getArgument(0),
+				1L,
+				invocation.getArgument(1)
+			)
+		}.`when`(lectureApplyHistoryRepository).findByLectureIdAndUserEmail(any(), any())
 
-		val actual = lectureApplyHistoryService.isExistLectureApplyHistory("test@example.com")
+		val actual = lectureApplyHistoryService.isExistLectureApplyHistory(1L, "test@example.com")
 
 		assertThat(actual).isTrue()
 	}
@@ -35,7 +39,7 @@ class LectureApplyHistoryServiceUnitTest {
 	@Test
 	@DisplayName("특정 사용자 이메일의 특강 신청 내역 존재 여부가 없는 상황에 대한 테스트")
 	fun isExistLectureApplyHistoryByUserEmailNone() {
-		val actual = lectureApplyHistoryService.isExistLectureApplyHistory("test@example.com")
+		val actual = lectureApplyHistoryService.isExistLectureApplyHistory(1L, "test@example.com")
 
 		assertThat(actual).isFalse()
 	}
