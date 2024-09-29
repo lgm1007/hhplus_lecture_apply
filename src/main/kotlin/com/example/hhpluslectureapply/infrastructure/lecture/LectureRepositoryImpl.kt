@@ -1,5 +1,6 @@
 package com.example.hhpluslectureapply.infrastructure.lecture
 
+import com.example.hhpluslectureapply.domain.lecture.LectureDto
 import com.example.hhpluslectureapply.domain.lecture.LectureRepository
 import com.example.hhpluslectureapply.infrastructure.lecture.entity.Lecture
 import org.springframework.data.repository.findByIdOrNull
@@ -16,5 +17,9 @@ class LectureRepositoryImpl(
 
 	override fun findAllByApplicationDateBefore(nowDate: LocalDateTime): List<Lecture> {
 		return jpaRepository.findDistinctByApplicationDateBefore(nowDate)
+	}
+
+	override fun insertOrUpdate(lectureDto: LectureDto): Lecture {
+		return jpaRepository.save(Lecture.from(lectureDto))
 	}
 }

@@ -19,4 +19,8 @@ class LectureApplyHistoryService(
 	fun getAllLectureApplyHistoryInfosByLectureId(lectureId: Long): Int {
 		return lectureApplyHistoryRepository.countByLectureId(lectureId)
 	}
+
+	fun insertOrUpdate(lectureApplyHistoryDto: LectureApplyHistoryDto): LectureApplyHistoryDto {
+		return LectureApplyHistoryDto.from(lectureApplyHistoryRepository.insertOrUpdate(lectureApplyHistoryDto))
+	}
 }

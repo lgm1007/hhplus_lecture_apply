@@ -7,4 +7,6 @@ interface LectureRepository {
 	fun findById(id: Long): Lecture?
 
 	fun findAllByApplicationDateBefore(nowDate: LocalDateTime): List<Lecture>
+
+	fun insertOrUpdate(lectureDto: LectureDto): Lecture
 }

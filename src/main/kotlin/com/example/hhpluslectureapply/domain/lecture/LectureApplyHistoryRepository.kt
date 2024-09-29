@@ -6,4 +6,6 @@ interface LectureApplyHistoryRepository {
 	fun findByLectureIdAndUserEmail(lectureId: Long, userEmail: String): LectureApplyHistory?
 
 	fun countByLectureId(lectureId: Long): Int
+
+	fun insertOrUpdate(lectureApplyHistoryDto: LectureApplyHistoryDto): LectureApplyHistory
 }

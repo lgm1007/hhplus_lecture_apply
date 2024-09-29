@@ -1,5 +1,6 @@
 package com.example.hhpluslectureapply.infrastructure.lecture.entity
 
+import com.example.hhpluslectureapply.domain.lecture.LectureDto
 import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -15,4 +16,14 @@ data class Lecture(
 	val lecturer: String,
 	val applicationDate: LocalDateTime,
 ) {
+	companion object {
+		fun from(lectureDto: LectureDto): Lecture {
+			return Lecture(
+				null,
+				lectureDto.title,
+				lectureDto.lecturer,
+				lectureDto.applicationDate
+			)
+		}
+	}
 }
