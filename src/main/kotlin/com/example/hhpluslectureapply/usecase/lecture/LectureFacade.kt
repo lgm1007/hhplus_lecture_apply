@@ -5,6 +5,7 @@ import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryService
 import com.example.hhpluslectureapply.domain.lecture.LectureService
 import com.example.hhpluslectureapply.exception.LectureException
 import org.springframework.stereotype.Component
+import java.time.LocalDateTime
 
 @Component
 class LectureFacade(
@@ -27,5 +28,19 @@ class LectureFacade(
 		}
 
 		lectureApplyHistoryService.insertOrUpdate(LectureApplyHistoryDto.from(lectureApplyInfo))
+	}
+
+	/**
+	 * 현재 신청 가능한 특강 목록 조회하기 메서드
+	 * 신청 가능한 특강 = 신청 일자가 지나지 않았고, 신청 정원이 마감되지 않은 특강
+	 */
+	fun getAllAppliableLectures(): List<LectureInfo> {
+		val nowDate = LocalDateTime.now();
+
+		return lectureService.getAllLecturesByApplicationDateBefore(nowDate).filter {
+			lectureApplyHistoryService.countLectureApplyHistoryInfosByLectureId(it.lectureId!!) < MAX_NUMBER_APPLY_LECTURE
+		}.map {
+			LectureInfo.from(it)
+		}.toList()
 	}
 }
