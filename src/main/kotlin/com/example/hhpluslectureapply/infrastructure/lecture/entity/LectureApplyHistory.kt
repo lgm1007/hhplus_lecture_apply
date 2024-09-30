@@ -1,6 +1,8 @@
 package com.example.hhpluslectureapply.infrastructure.lecture.entity
 
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryDto
+import org.springframework.data.annotation.CreatedDate
+import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -13,13 +15,16 @@ data class LectureApplyHistory(
 	var id: Long?,
 	val lectureId: Long,
 	val userEmail: String,
+	@CreatedDate
+	val createdDate: LocalDateTime?,
 ) {
 	companion object {
 		fun from(lectureApplyHistoryDto: LectureApplyHistoryDto): LectureApplyHistory {
 			return LectureApplyHistory(
 				null,
 				lectureApplyHistoryDto.lectureId,
-				lectureApplyHistoryDto.userEmail
+				lectureApplyHistoryDto.userEmail,
+				null
 			)
 		}
 	}
