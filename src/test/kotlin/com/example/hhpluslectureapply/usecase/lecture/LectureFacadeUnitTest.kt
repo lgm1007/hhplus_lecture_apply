@@ -4,7 +4,9 @@ import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryDto
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryService
 import com.example.hhpluslectureapply.domain.lecture.LectureDto
 import com.example.hhpluslectureapply.domain.lecture.LectureService
+import com.example.hhpluslectureapply.exception.LectureException
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
+import org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -26,6 +28,18 @@ class LectureFacadeUnitTest {
 
 	@InjectMocks
 	lateinit var lectureFacade: LectureFacade
+
+	@Test
+	@DisplayName("특강 신청 시 해당 특강의 신청 정원이 초과된 경우에 대한 예외케이스")
+	fun shouldFailMaxLectureApplyNumber() {
+		`when`(lectureApplyHistoryService.isFullCountLectureMaxApply(any()))
+			.thenReturn(true)
+
+		assertThatThrownBy {
+			lectureFacade.applyLecture(LectureApplyInfo(1L, 1L))
+		}.isInstanceOf(LectureException::class.java)
+			.hasMessageContaining("신청 정원이 마감되었습니다.")
+	}
 
 	@Test
 	@DisplayName("현재 신청 가능한 특강 목록 조회하는 기능 단위 테스트 - 특강 정원이 마감되었는지 필터링 기능 검증")
