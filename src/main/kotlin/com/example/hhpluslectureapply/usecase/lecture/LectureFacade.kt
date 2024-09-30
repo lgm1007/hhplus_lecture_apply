@@ -5,6 +5,7 @@ import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryService
 import com.example.hhpluslectureapply.domain.lecture.LectureService
 import com.example.hhpluslectureapply.exception.LectureException
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
 @Component
@@ -15,6 +16,7 @@ class LectureFacade(
 	/**
 	 * 특강 신청하기 메서드
 	 */
+	@Transactional
 	fun applyLecture(lectureApplyInfo: LectureApplyInfo) {
 		val lectureId = lectureApplyInfo.lectureId
 		val userId = lectureApplyInfo.userId
