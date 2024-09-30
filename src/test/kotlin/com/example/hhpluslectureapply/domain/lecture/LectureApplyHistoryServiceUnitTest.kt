@@ -27,7 +27,8 @@ class LectureApplyHistoryServiceUnitTest {
 			LectureApplyHistory(
 				invocation.getArgument(0),
 				1L,
-				invocation.getArgument(1)
+				invocation.getArgument(1),
+				null
 			)
 		}.`when`(lectureApplyHistoryRepository).findByLectureIdAndUserEmail(any(), any())
 
