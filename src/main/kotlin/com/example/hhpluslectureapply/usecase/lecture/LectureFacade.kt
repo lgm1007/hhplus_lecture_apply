@@ -3,7 +3,6 @@ package com.example.hhpluslectureapply.usecase.lecture
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryDto
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryService
 import com.example.hhpluslectureapply.domain.lecture.LectureService
-import com.example.hhpluslectureapply.exception.LectureException
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 
@@ -16,17 +15,6 @@ class LectureFacade(
 	 * 특강 신청하기 메서드
 	 */
 	fun applyLecture(lectureApplyInfo: LectureApplyInfo) {
-		val requestLectureId = lectureApplyInfo.lectureId
-		val requestUserEmail = lectureApplyInfo.userId
-
-		if (lectureApplyHistoryService.isExistLectureApplyHistory(requestLectureId, requestUserEmail)) {
-			throw LectureException("ID: ${requestLectureId}의 특강은 Email: ${requestUserEmail} 유저가 이미 신청한 내역이 있습니다.")
-		}
-
-		if (lectureApplyHistoryService.countLectureApplyHistoryInfosByLectureId(requestLectureId) >= MAX_NUMBER_APPLY_LECTURE) {
-			throw LectureException("ID: ${requestLectureId} 특강은 최대 정원이 마감되었습니다.")
-		}
-
 		lectureApplyHistoryService.insertOrUpdate(LectureApplyHistoryDto.from(lectureApplyInfo))
 	}
 
@@ -37,9 +25,7 @@ class LectureFacade(
 	fun getAllAppliableLectures(): List<LectureInfo> {
 		val nowDate = LocalDateTime.now();
 
-		return lectureService.getAllLecturesByApplicationDateBefore(nowDate).filter {
-			lectureApplyHistoryService.countLectureApplyHistoryInfosByLectureId(it.lectureId!!) < MAX_NUMBER_APPLY_LECTURE
-		}.map {
+		return lectureService.getAllLecturesByApplicationDateBefore(nowDate).map {
 			LectureInfo.from(it)
 		}.toList()
 	}
