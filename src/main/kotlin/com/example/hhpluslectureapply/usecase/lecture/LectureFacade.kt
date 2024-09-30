@@ -25,7 +25,9 @@ class LectureFacade(
 	fun getAllAppliableLectures(): List<LectureInfo> {
 		val nowDate = LocalDateTime.now();
 
-		return lectureService.getAllLecturesByApplicationDateBefore(nowDate).map {
+		return lectureService.getAllLecturesByApplicationDateBefore(nowDate).filter {
+			lectureApplyHistoryService.isNotFullCountLectureMaxApply(it.lectureId!!)
+		}.map {
 			LectureInfo.from(it)
 		}.toList()
 	}

@@ -29,12 +29,14 @@ class LectureFacadeUnitTest {
 	@Test
 	@DisplayName("현재 신청 가능한 특강 목록 조회하는 기능 단위 테스트 - 특강 정원이 마감되었는지 필터링 기능 검증")
 	fun getAllAppliableLectures() {
+		`when`(lectureApplyHistoryService.isNotFullCountLectureMaxApply(any()))
+			.thenReturn(false)
 
 		`when`(lectureService.getAllLecturesByApplicationDateBefore(any()))
 			.thenReturn(givenLectures())
 
 		val actual = lectureFacade.getAllAppliableLectures()
-		assertThat(actual.size).isEqualTo(2)
+		assertThat(actual.size).isEqualTo(0)
 	}
 
 	private fun givenLectures(): List<LectureDto> {
