@@ -2,6 +2,7 @@ package com.example.hhpluslectureapply.domain.lecture
 
 import com.example.hhpluslectureapply.exception.LectureException
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
 @Service
@@ -34,6 +35,7 @@ class LectureService(
 		}.toList()
 	}
 
+	@Transactional
 	fun insertOrUpdate(lectureDto: LectureDto): LectureDto {
 		return LectureDto.from(lectureRepository.insertOrUpdate(lectureDto))
 	}

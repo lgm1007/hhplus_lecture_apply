@@ -2,6 +2,7 @@ package com.example.hhpluslectureapply.domain.lecture
 
 import com.example.hhpluslectureapply.usecase.lecture.MAX_NUMBER_APPLY_LECTURE
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class LectureApplyHistoryService(
@@ -26,6 +27,7 @@ class LectureApplyHistoryService(
 	/**
 	 * 특강 신청내역을 저장하거나 업데이트하는 메서드
 	 */
+	@Transactional
 	fun insertOrUpdate(lectureApplyHistoryDto: LectureApplyHistoryDto): LectureApplyHistoryDto {
 		return LectureApplyHistoryDto.from(lectureApplyHistoryRepository.insertOrUpdate(lectureApplyHistoryDto))
 	}
