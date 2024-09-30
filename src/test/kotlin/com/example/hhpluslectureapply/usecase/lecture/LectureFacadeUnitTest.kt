@@ -42,7 +42,7 @@ class LectureFacadeUnitTest {
 	fun shouldApplyLectureFailMaxNumberApply() {
 		val MAX_NUMBER_APPLY_LECTURE = 30
 
-		`when`(lectureApplyHistoryService.getAllLectureApplyHistoryInfosByLectureId(any()))
+		`when`(lectureApplyHistoryService.countLectureApplyHistoryInfosByLectureId(any()))
 			.thenReturn(MAX_NUMBER_APPLY_LECTURE)
 
 		assertThatThrownBy {

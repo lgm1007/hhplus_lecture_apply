@@ -16,7 +16,7 @@ class LectureApplyHistoryService(
 	/**
 	 * 특강 ID로 특강 신청 내역 개수 조회 메서드
 	 */
-	fun getAllLectureApplyHistoryInfosByLectureId(lectureId: Long): Int {
+	fun countLectureApplyHistoryInfosByLectureId(lectureId: Long): Int {
 		return lectureApplyHistoryRepository.countByLectureId(lectureId)
 	}
 

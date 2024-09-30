@@ -22,7 +22,7 @@ class LectureFacade(
 			throw LectureException("ID: ${requestLectureId}의 특강은 Email: ${requestUserEmail} 유저가 이미 신청한 내역이 있습니다.")
 		}
 
-		if (lectureApplyHistoryService.getAllLectureApplyHistoryInfosByLectureId(requestLectureId) >= MAX_NUMBER_APPLY_LECTURE) {
+		if (lectureApplyHistoryService.countLectureApplyHistoryInfosByLectureId(requestLectureId) >= MAX_NUMBER_APPLY_LECTURE) {
 			throw LectureException("ID: ${requestLectureId} 특강은 최대 정원이 마감되었습니다.")
 		}
 
