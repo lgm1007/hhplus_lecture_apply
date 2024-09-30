@@ -1,5 +1,6 @@
 package com.example.hhpluslectureapply.usecase.lecture
 
+import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryDto
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryService
 import com.example.hhpluslectureapply.domain.lecture.LectureDto
 import com.example.hhpluslectureapply.domain.lecture.LectureService
@@ -39,10 +40,30 @@ class LectureFacadeUnitTest {
 		assertThat(actual.size).isEqualTo(0)
 	}
 
+	@Test
+	@DisplayName("사용자 아이디로 신청한 특강 목록을 조회하는 기능 단위 테스트")
+	fun getAllLecturesByUserApplied() {
+		`when`(lectureApplyHistoryService.getAllHistoriesByUserId(any()))
+			.thenReturn(givenLectureHistories())
+
+		`when`(lectureService.getAllLecturesByIds(any()))
+			.thenReturn(givenLectures())
+
+		val actual = lectureFacade.getAllLecturesByUserApplied(1L)
+		assertThat(actual.size).isEqualTo(givenLectures().size)
+	}
+
 	private fun givenLectures(): List<LectureDto> {
-		return listOf<LectureDto>(
+		return listOf(
 			LectureDto(1L, "title1", "강사1", LocalDateTime.now()),
 			LectureDto(2L, "title2", "강사2", LocalDateTime.now())
+		)
+	}
+
+	private fun givenLectureHistories(): List<LectureApplyHistoryDto> {
+		return listOf(
+			LectureApplyHistoryDto(1L, 1L),
+			LectureApplyHistoryDto(2L, 1L)
 		)
 	}
 
