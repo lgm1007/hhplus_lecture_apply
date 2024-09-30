@@ -9,7 +9,7 @@ class LectureService(
 	private val lectureRepository: LectureRepository
 ) {
 	/**
-	 * 아이디 값으로 특강 단건 조회하는 메서드
+	 * 특강 아이디 값으로 특강 단건 조회하는 메서드
 	 */
 	fun getLectureInfoById(lectureId: Long): LectureDto {
 		val lecture = lectureRepository.findById(lectureId) ?: throw LectureException("ID: ${lectureId}에 해당하는 특강이 존재하지 않습니다.")

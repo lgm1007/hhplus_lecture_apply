@@ -32,7 +32,7 @@ class LectureFacadeUnitTest {
 			.thenReturn(true)
 
 		assertThatThrownBy {
-			lectureFacade.applyLecture(LectureApplyInfo(1L, "test@example.com"))
+			lectureFacade.applyLecture(LectureApplyInfo(1L, 1L))
 		}.isInstanceOf(LectureException::class.java)
 			.hasMessageContaining("유저가 이미 신청한 내역이 있습니다.")
 	}
@@ -46,7 +46,7 @@ class LectureFacadeUnitTest {
 			.thenReturn(MAX_NUMBER_APPLY_LECTURE)
 
 		assertThatThrownBy {
-			lectureFacade.applyLecture(LectureApplyInfo(1L, "test@example.com"))
+			lectureFacade.applyLecture(LectureApplyInfo(1L, 1L))
 		}.isInstanceOf(LectureException::class.java)
 			.hasMessageContaining("특강은 최대 정원이 마감되었습니다.")
 	}

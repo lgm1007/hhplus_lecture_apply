@@ -7,14 +7,14 @@ class LectureApplyHistoryService(
 	private val lectureApplyHistoryRepository: LectureApplyHistoryRepository,
 ) {
 	/**
-	 * 특정 아이디인 특강에 대해 사용자 이메일에 해당하는 특강 신청 내역 존재여부 메서드
+	 * 특정 아이디인 특강에 대해 사용자 아이디에 해당하는 특강 신청 내역 존재여부 메서드
 	 */
-	fun isExistLectureApplyHistory(lectureId: Long, userEmail: String): Boolean {
-		return lectureApplyHistoryRepository.findByLectureIdAndUserEmail(lectureId, userEmail) != null
+	fun isExistLectureApplyHistory(lectureId: Long, userId: Long): Boolean {
+		return lectureApplyHistoryRepository.findByLectureIdAndUserId(lectureId, userId) != null
 	}
 
 	/**
-	 * 특강 ID로 특강 신청 내역 개수 조회 메서드
+	 * 특강 아이디로 특강 신청 내역 개수 조회 메서드
 	 */
 	fun countLectureApplyHistoryInfosByLectureId(lectureId: Long): Int {
 		return lectureApplyHistoryRepository.countByLectureId(lectureId)

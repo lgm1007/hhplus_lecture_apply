@@ -14,7 +14,7 @@ data class LectureApplyHistory(
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	var id: Long?,
 	val lectureId: Long,
-	val userEmail: String,
+	val userId: Long,
 	@CreatedDate
 	val createdDate: LocalDateTime?,
 ) {
@@ -23,7 +23,7 @@ data class LectureApplyHistory(
 			return LectureApplyHistory(
 				null,
 				lectureApplyHistoryDto.lectureId,
-				lectureApplyHistoryDto.userEmail,
+				lectureApplyHistoryDto.userId,
 				null
 			)
 		}

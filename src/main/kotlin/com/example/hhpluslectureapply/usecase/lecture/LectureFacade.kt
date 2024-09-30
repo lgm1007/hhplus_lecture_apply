@@ -17,7 +17,7 @@ class LectureFacade(
 	 */
 	fun applyLecture(lectureApplyInfo: LectureApplyInfo) {
 		val requestLectureId = lectureApplyInfo.lectureId
-		val requestUserEmail = lectureApplyInfo.userEmail
+		val requestUserEmail = lectureApplyInfo.userId
 
 		if (lectureApplyHistoryService.isExistLectureApplyHistory(requestLectureId, requestUserEmail)) {
 			throw LectureException("ID: ${requestLectureId}의 특강은 Email: ${requestUserEmail} 유저가 이미 신청한 내역이 있습니다.")

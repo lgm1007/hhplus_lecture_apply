@@ -5,15 +5,15 @@ import com.example.hhpluslectureapply.usecase.lecture.LectureApplyInfo
 
 data class LectureApplyHistoryDto(
 	val lectureId: Long,
-	val userEmail: String
+	val userId: Long
 ) {
 	companion object {
 		fun from(lectureApplyHistory: LectureApplyHistory): LectureApplyHistoryDto {
-			return LectureApplyHistoryDto(lectureApplyHistory.lectureId, lectureApplyHistory.userEmail)
+			return LectureApplyHistoryDto(lectureApplyHistory.lectureId, lectureApplyHistory.userId)
 		}
 
 		fun from(lectureApplyInfo: LectureApplyInfo): LectureApplyHistoryDto {
-			return LectureApplyHistoryDto(lectureApplyInfo.lectureId, lectureApplyInfo.userEmail)
+			return LectureApplyHistoryDto(lectureApplyInfo.lectureId, lectureApplyInfo.userId)
 		}
 	}
 }
