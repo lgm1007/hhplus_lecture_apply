@@ -29,4 +29,15 @@ class LectureFacade(
 			LectureInfo.from(it)
 		}.toList()
 	}
+
+	/**
+	 * 사용자 아이디로 신청한 특강 목록을 조회하기 메서드
+	 */
+	fun getAllLecturesByUserApplied(userId: Long): List<LectureInfo> {
+		val lectureIds = lectureApplyHistoryService.getAllHistoriesByUserId(userId).map { it.lectureId }.toList()
+
+		return lectureService.getAllLecturesByIds(lectureIds).map {
+			LectureInfo.from(it)
+		}.toList()
+	}
 }

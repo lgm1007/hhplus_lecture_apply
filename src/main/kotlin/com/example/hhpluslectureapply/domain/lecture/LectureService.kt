@@ -25,6 +25,12 @@ class LectureService(
 		}.toList()
 	}
 
+	fun getAllLecturesByIds(lectureIds: List<Long>): List<LectureDto> {
+		return lectureRepository.findAllByIdsIn(lectureIds).map {
+			LectureDto.from(it)
+		}.toList()
+	}
+
 	fun insertOrUpdate(lectureDto: LectureDto): LectureDto {
 		return LectureDto.from(lectureRepository.insertOrUpdate(lectureDto))
 	}

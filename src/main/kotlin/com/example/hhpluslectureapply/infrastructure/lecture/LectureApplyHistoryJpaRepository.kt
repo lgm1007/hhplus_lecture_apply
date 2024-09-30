@@ -4,4 +4,5 @@ import com.example.hhpluslectureapply.infrastructure.lecture.entity.LectureApply
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface LectureApplyHistoryJpaRepository : JpaRepository<LectureApplyHistory, Long> {
+	fun findAllByUserId(userId: Long): List<LectureApplyHistory>
 }

@@ -19,6 +19,10 @@ class LectureRepositoryImpl(
 		return jpaRepository.findDistinctByApplicationDateBefore(nowDate)
 	}
 
+	override fun findAllByIdsIn(ids: List<Long>): List<Lecture> {
+		return jpaRepository.findDistinctByIdIn(ids)
+	}
+
 	override fun insertOrUpdate(lectureDto: LectureDto): Lecture {
 		return jpaRepository.save(Lecture.from(lectureDto))
 	}

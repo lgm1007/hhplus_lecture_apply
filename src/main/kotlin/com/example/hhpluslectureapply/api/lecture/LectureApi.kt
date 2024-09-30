@@ -21,10 +21,23 @@ class LectureApi(
 		return ResponseEntity.ok(Any())
 	}
 
+	/**
+	 * 현재 신청 가능한 특강 목록 조회하기
+	 */
 	@GetMapping("/apply/list")
 	fun getAppliableLectures(): ResponseEntity<List<LectureResponse>> {
 		return ResponseEntity.ok(
 			lectureFacade.getAllAppliableLectures().map { LectureResponse.from(it) }.toList()
+		)
+	}
+
+	/**
+	 * 특정 사용자가 신청 완료한 특강 목록 조회하기
+	 */
+	@GetMapping("list/user/{userId}")
+	fun getLecturesByUserId(@PathVariable userId: Long): ResponseEntity<List<LectureResponse>> {
+		return ResponseEntity.ok(
+			lectureFacade.getAllLecturesByUserApplied(userId).map { LectureResponse.from(it) }.toList()
 		)
 	}
 
