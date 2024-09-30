@@ -3,6 +3,7 @@ package com.example.hhpluslectureapply.usecase.lecture
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryDto
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryService
 import com.example.hhpluslectureapply.domain.lecture.LectureService
+import com.example.hhpluslectureapply.exception.LectureException
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 
@@ -15,6 +16,14 @@ class LectureFacade(
 	 * 특강 신청하기 메서드
 	 */
 	fun applyLecture(lectureApplyInfo: LectureApplyInfo) {
+		val lectureId = lectureApplyInfo.lectureId
+		val userId = lectureApplyInfo.userId
+
+		if (lectureApplyHistoryService.isFullCountLectureMaxApply(lectureId)) {
+			throw LectureException("특강 아이디가 ${lectureId}에 해당하는 특강은 신청 정원이 마감되었습니다.")
+		}
+
+
 		lectureApplyHistoryService.insertOrUpdate(LectureApplyHistoryDto.from(lectureApplyInfo))
 	}
 
