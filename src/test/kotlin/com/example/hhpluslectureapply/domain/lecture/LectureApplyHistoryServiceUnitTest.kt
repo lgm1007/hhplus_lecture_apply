@@ -26,12 +26,12 @@ class LectureApplyHistoryServiceUnitTest {
 		`when`(lectureApplyHistoryRepository.countByLectureId(2L))
 			.thenReturn(30)
 
-		val actual1 = lectureApplyHistoryService.isNotFullCountLectureMaxApply(1L)
-		val actual2 = lectureApplyHistoryService.isNotFullCountLectureMaxApply(2L)
+		val actual1 = lectureApplyHistoryService.isFullCountLectureMaxApply(1L)
+		val actual2 = lectureApplyHistoryService.isFullCountLectureMaxApply(2L)
 
 		assertAll(
-			{ AssertionsForClassTypes.assertThat(actual1).isTrue() },
-			{ AssertionsForClassTypes.assertThat(actual2).isFalse() }
+			{ AssertionsForClassTypes.assertThat(actual1).isFalse() },
+			{ AssertionsForClassTypes.assertThat(actual2).isTrue() }
 		)
 	}
 }
