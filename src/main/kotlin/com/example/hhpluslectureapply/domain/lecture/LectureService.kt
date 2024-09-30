@@ -25,6 +25,9 @@ class LectureService(
 		}.toList()
 	}
 
+	/**
+	 * 특강 아이디 목록으로 특강 정보 목록을 조회하는 메서드
+	 */
 	fun getAllLecturesByIds(lectureIds: List<Long>): List<LectureDto> {
 		return lectureRepository.findAllByIdsIn(lectureIds).map {
 			LectureDto.from(it)
