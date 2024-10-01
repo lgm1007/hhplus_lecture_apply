@@ -8,7 +8,7 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-data class Lecture(
+class Lecture(
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	val id: Long?,
