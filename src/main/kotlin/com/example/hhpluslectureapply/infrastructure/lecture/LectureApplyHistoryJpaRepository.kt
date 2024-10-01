@@ -10,6 +10,8 @@ import javax.persistence.LockModeType
 interface LectureApplyHistoryJpaRepository : JpaRepository<LectureApplyHistory, Long> {
 	fun findAllByUserId(userId: Long): List<LectureApplyHistory>
 
+	fun findAllByLectureId(lectureId: Long): List<LectureApplyHistory>
+
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	@Query("SELECT count(*) FROM LectureApplyHistory WHERE lectureId = :lectureId")
 	fun countByLectureId(@Param("lectureId") lectureId: Long): Long

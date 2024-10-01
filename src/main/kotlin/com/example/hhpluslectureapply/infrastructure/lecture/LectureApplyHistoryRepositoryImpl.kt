@@ -13,6 +13,10 @@ class LectureApplyHistoryRepositoryImpl(
 		return jpaRepository.findAllByUserId(userId)
 	}
 
+	override fun findAllByLectureId(lectureId: Long): List<LectureApplyHistory> {
+		return jpaRepository.findAllByLectureId(lectureId)
+	}
+
 	override fun countByLectureId(lectureId: Long): Int {
 		return jpaRepository.countByLectureId(lectureId).toInt()
 	}

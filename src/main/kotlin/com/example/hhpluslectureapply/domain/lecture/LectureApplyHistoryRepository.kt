@@ -6,6 +6,8 @@ import com.example.hhpluslectureapply.infrastructure.lecture.entity.LectureApply
 interface LectureApplyHistoryRepository {
 	fun findAllByUserId(userId: Long): List<LectureApplyHistory>
 
+	fun findAllByLectureId(lectureId: Long): List<LectureApplyHistory>
+
 	fun countByLectureId(lectureId: Long): Int
 
 	fun insertOrUpdate(lectureApplyHistoryDto: LectureApplyHistoryDto): LectureApplyHistory
