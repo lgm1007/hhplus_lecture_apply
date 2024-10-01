@@ -8,18 +8,20 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-data class Lecture(
+class Lecture(
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	val id: Long?,
+	val id: Long = 0,
 	val title: String,
 	val lecturer: String,
 	val applicationDate: LocalDateTime,
 ) {
+	var currentApplicants: Int = 0
+
 	companion object {
 		fun from(lectureDto: LectureDto): Lecture {
 			return Lecture(
-				null,
+				lectureDto.lectureId,
 				lectureDto.title,
 				lectureDto.lecturer,
 				lectureDto.applicationDate

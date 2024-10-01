@@ -9,7 +9,7 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-data class LectureApplyHistory(
+class LectureApplyHistory(
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	var id: Long?,
