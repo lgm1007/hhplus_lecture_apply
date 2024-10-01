@@ -1,6 +1,6 @@
 package com.example.hhpluslectureapply.api.lecture.response
 
-import com.example.hhpluslectureapply.usecase.lecture.LectureInfo
+import com.example.hhpluslectureapply.usecase.lecture.dto.LectureInfo
 import java.time.LocalDateTime
 
 data class LectureResponse(

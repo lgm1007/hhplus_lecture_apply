@@ -1,7 +1,7 @@
-package com.example.hhpluslectureapply.domain.lecture
+package com.example.hhpluslectureapply.domain.lecture.dto
 
 import com.example.hhpluslectureapply.infrastructure.lecture.entity.LectureApplyHistory
-import com.example.hhpluslectureapply.usecase.lecture.LectureApplyInfo
+import com.example.hhpluslectureapply.usecase.lecture.dto.LectureApplyInfo
 
 data class LectureApplyHistoryDto(
 	val lectureId: Long,

@@ -1,4 +1,4 @@
-package com.example.hhpluslectureapply.usecase.lecture
+package com.example.hhpluslectureapply.usecase.lecture.dto
 
 import com.example.hhpluslectureapply.api.lecture.request.LectureApplyRequest
 

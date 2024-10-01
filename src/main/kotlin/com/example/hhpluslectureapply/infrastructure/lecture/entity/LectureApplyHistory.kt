@@ -1,6 +1,6 @@
 package com.example.hhpluslectureapply.infrastructure.lecture.entity
 
-import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryDto
+import com.example.hhpluslectureapply.domain.lecture.dto.LectureApplyHistoryDto
 import org.springframework.data.annotation.CreatedDate
 import java.time.LocalDateTime
 import javax.persistence.Entity

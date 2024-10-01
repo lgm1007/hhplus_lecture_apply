@@ -1,4 +1,4 @@
-package com.example.hhpluslectureapply.domain.lecture
+package com.example.hhpluslectureapply.domain.lecture.dto
 
 import com.example.hhpluslectureapply.infrastructure.lecture.entity.Lecture
 import java.time.LocalDateTime

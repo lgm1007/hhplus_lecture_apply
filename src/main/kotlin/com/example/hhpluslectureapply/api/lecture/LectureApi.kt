@@ -2,8 +2,8 @@ package com.example.hhpluslectureapply.api.lecture
 
 import com.example.hhpluslectureapply.api.lecture.request.LectureApplyRequest
 import com.example.hhpluslectureapply.api.lecture.response.LectureResponse
-import com.example.hhpluslectureapply.usecase.lecture.LectureApplyInfo
 import com.example.hhpluslectureapply.usecase.lecture.LectureFacade
+import com.example.hhpluslectureapply.usecase.lecture.dto.LectureApplyInfo
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
