@@ -3,7 +3,6 @@ package com.example.hhpluslectureapply.usecase.lecture
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryService
 import com.example.hhpluslectureapply.domain.lecture.LectureService
 import com.example.hhpluslectureapply.domain.lecture.dto.LectureApplyHistoryDto
-import com.example.hhpluslectureapply.exception.LectureException
 import com.example.hhpluslectureapply.usecase.lecture.dto.LectureApplyInfo
 import com.example.hhpluslectureapply.usecase.lecture.dto.LectureInfo
 import org.springframework.stereotype.Component
@@ -24,12 +23,13 @@ class LectureFacade(
 		val lectureId = lectureApplyInfo.lectureId
 		val userId = lectureApplyInfo.userId
 
-		if (lectureApplyHistoryService.isFullCountLectureMaxApply(lectureId)) {
-			throw LectureException("특강 아이디가 ${lectureId}에 해당하는 특강은 신청 정원이 마감되었습니다.")
-		}
-
-		lectureService.updateCurrentApplicantsIncrease(lectureApplyInfo.lectureId)
-		lectureApplyHistoryService.insertOrUpdate(LectureApplyHistoryDto.from(lectureApplyInfo))
+		lectureApplyHistoryService.applyLecture(LectureApplyHistoryDto.from(lectureApplyInfo))
+//		if (lectureApplyHistoryService.isFullCountLectureMaxApply(lectureId)) {
+//			throw LectureException("특강 아이디가 ${lectureId}에 해당하는 특강은 신청 정원이 마감되었습니다.")
+//		}
+//
+//		lectureService.updateCurrentApplicantsIncrease(lectureApplyInfo.lectureId)
+//		lectureApplyHistoryService.insertOrUpdate(LectureApplyHistoryDto.from(lectureApplyInfo))
 	}
 
 	/**

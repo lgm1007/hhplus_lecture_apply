@@ -18,6 +18,10 @@ class LectureApplyHistoryService(
 		}.toList()
 	}
 
+	fun applyLecture(lectureApplyHistoryDto: LectureApplyHistoryDto) {
+		lectureApplyHistoryRepository.applyLecture(lectureApplyHistoryDto)
+	}
+
 	/**
 	 * 특정 특강의 정원이 아직 마감되지 않았는지 여부를 반환하는 메서드
 	 */

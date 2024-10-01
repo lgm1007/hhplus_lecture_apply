@@ -8,5 +8,9 @@ interface LectureApplyHistoryRepository {
 
 	fun findAllByLectureId(lectureId: Long): List<LectureApplyHistory>
 
+	fun applyLecture(lectureApplyHistoryDto: LectureApplyHistoryDto)
+
+	fun countApplyHistoriesByLectureId(lectureId: Long): Int
+
 	fun insertOrUpdate(lectureApplyHistoryDto: LectureApplyHistoryDto): LectureApplyHistory
 }
