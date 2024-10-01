@@ -3,7 +3,6 @@ package com.example.hhpluslectureapply.usecase.lecture
 import com.example.hhpluslectureapply.DatabaseInitializer
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryRepository
 import com.example.hhpluslectureapply.usecase.lecture.dto.LectureApplyInfo
-import org.assertj.core.api.AssertionsForClassTypes
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
-import java.util.concurrent.atomic.AtomicLong
 
 @SpringBootTest
 class LectureFacadeIntegrationTest {
@@ -30,17 +28,18 @@ class LectureFacadeIntegrationTest {
 		val executor = Executors.newFixedThreadPool(10)
 		val lectureLatch = CountDownLatch(40)
 
-		val userId = AtomicLong(1L)
 		try {
 			repeat(40) {
 				executor.submit {
 					try {
-						lectureFacade.applyLecture(LectureApplyInfo(1L, userId.getAndIncrement()))
+						lectureFacade.applyLecture(LectureApplyInfo(1L, (it + 1).toLong()))
 					} finally {
 						lectureLatch.countDown()
 					}
 				}
 			}
+
+			lectureLatch.await()
 
 			val actual = lectureApplyHistoryRepository.findAllByLectureId(1L)
 
