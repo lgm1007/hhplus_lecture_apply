@@ -18,6 +18,17 @@ class LectureService(
 		return LectureDto.from(lecture)
 	}
 
+	/**
+	 * 특강 아이디 값으로 Lock이 걸린 특강 단건을 조회하는 메서드
+	 */
+	fun getLectureInfoWithLockById(lectureId: Long): LectureDto {
+		val lecture = lectureRepository.findByIdWithLock(lectureId) ?: throw LectureException("ID: ${lectureId}에 해당하는 특강이 존재하지 않습니다.")
+		return LectureDto.from(lecture)
+	}
+
+	/**
+	 * 특강을 신청한 인원 수 1 증가 업데이트하는 메서드
+	 */
 	fun updateCurrentApplicantsIncrease(lectureId: Long): LectureDto {
 		return LectureDto.from(lectureRepository.updateCurrentApplicantsById(lectureId))
 	}

@@ -1,6 +1,7 @@
 package com.example.hhpluslectureapply.domain.lecture.dto
 
 import com.example.hhpluslectureapply.infrastructure.lecture.entity.Lecture
+import com.example.hhpluslectureapply.usecase.lecture.MAX_NUMBER_APPLY_LECTURE
 import java.time.LocalDateTime
 
 data class LectureDto(
@@ -20,5 +21,9 @@ data class LectureDto(
 				lecture.applicationDate
 			)
 		}
+	}
+
+	fun isFullCurrentApplicantsMaxApply(): Boolean {
+		return currentApplicants >= MAX_NUMBER_APPLY_LECTURE
 	}
 }

@@ -17,6 +17,11 @@ class LectureRepositoryImpl(
 		return jpaRepository.findByIdOrNull(id)
 	}
 
+	@Transactional(readOnly = true)
+	override fun findByIdWithLock(id: Long): Lecture? {
+		return jpaRepository.findByIdWithLock(id)
+	}
+
 	@Transactional
 	override fun updateCurrentApplicantsById(id: Long): Lecture {
 		val lecture = findById(id) ?: throw LectureException("ID: ${id}에 해당하는 특강이 존재하지 않습니다.")
