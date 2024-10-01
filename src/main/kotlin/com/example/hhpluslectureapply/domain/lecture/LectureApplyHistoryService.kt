@@ -1,5 +1,6 @@
 package com.example.hhpluslectureapply.domain.lecture
 
+import com.example.hhpluslectureapply.domain.lecture.dto.LectureApplyHistoryDto
 import com.example.hhpluslectureapply.usecase.lecture.MAX_NUMBER_APPLY_LECTURE
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

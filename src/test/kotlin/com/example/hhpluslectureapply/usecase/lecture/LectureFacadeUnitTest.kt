@@ -1,9 +1,9 @@
 package com.example.hhpluslectureapply.usecase.lecture
 
-import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryDto
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryService
-import com.example.hhpluslectureapply.domain.lecture.LectureDto
 import com.example.hhpluslectureapply.domain.lecture.LectureService
+import com.example.hhpluslectureapply.domain.lecture.dto.LectureApplyHistoryDto
+import com.example.hhpluslectureapply.domain.lecture.dto.LectureDto
 import com.example.hhpluslectureapply.exception.LectureException
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
 import org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy

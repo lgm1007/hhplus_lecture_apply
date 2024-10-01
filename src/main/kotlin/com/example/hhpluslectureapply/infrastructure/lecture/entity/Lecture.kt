@@ -1,6 +1,6 @@
 package com.example.hhpluslectureapply.infrastructure.lecture.entity
 
-import com.example.hhpluslectureapply.domain.lecture.LectureDto
+import com.example.hhpluslectureapply.domain.lecture.dto.LectureDto
 import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue

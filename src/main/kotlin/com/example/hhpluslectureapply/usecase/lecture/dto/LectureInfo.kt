@@ -1,6 +1,6 @@
-package com.example.hhpluslectureapply.usecase.lecture
+package com.example.hhpluslectureapply.usecase.lecture.dto
 
-import com.example.hhpluslectureapply.domain.lecture.LectureDto
+import com.example.hhpluslectureapply.domain.lecture.dto.LectureDto
 import java.time.LocalDateTime
 
 data class LectureInfo(

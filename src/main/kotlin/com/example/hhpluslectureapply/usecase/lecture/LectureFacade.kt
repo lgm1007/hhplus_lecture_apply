@@ -1,8 +1,10 @@
 package com.example.hhpluslectureapply.usecase.lecture
 
-import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryDto
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryService
 import com.example.hhpluslectureapply.domain.lecture.LectureService
+import com.example.hhpluslectureapply.domain.lecture.dto.LectureApplyHistoryDto
+import com.example.hhpluslectureapply.usecase.lecture.dto.LectureApplyInfo
+import com.example.hhpluslectureapply.usecase.lecture.dto.LectureInfo
 import com.example.hhpluslectureapply.exception.LectureException
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
