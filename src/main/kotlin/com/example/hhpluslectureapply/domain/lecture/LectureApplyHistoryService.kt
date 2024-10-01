@@ -22,7 +22,7 @@ class LectureApplyHistoryService(
 	 * 특정 특강의 정원이 아직 마감되지 않았는지 여부를 반환하는 메서드
 	 */
 	fun isFullCountLectureMaxApply(lectureId: Long): Boolean {
-		return lectureApplyHistoryRepository.countByLectureId(lectureId) >= MAX_NUMBER_APPLY_LECTURE
+		return lectureApplyHistoryRepository.findAllByLectureId(lectureId).size >= MAX_NUMBER_APPLY_LECTURE
 	}
 
 	/**

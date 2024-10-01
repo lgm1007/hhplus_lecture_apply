@@ -17,10 +17,6 @@ class LectureApplyHistoryRepositoryImpl(
 		return jpaRepository.findAllByLectureId(lectureId)
 	}
 
-	override fun countByLectureId(lectureId: Long): Int {
-		return jpaRepository.countByLectureId(lectureId).toInt()
-	}
-
 	override fun insertOrUpdate(lectureApplyHistoryDto: LectureApplyHistoryDto): LectureApplyHistory {
 		return jpaRepository.save(LectureApplyHistory.from(lectureApplyHistoryDto))
 	}
