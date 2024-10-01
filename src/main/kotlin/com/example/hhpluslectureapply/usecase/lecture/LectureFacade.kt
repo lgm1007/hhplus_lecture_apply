@@ -3,10 +3,11 @@ package com.example.hhpluslectureapply.usecase.lecture
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryService
 import com.example.hhpluslectureapply.domain.lecture.LectureService
 import com.example.hhpluslectureapply.domain.lecture.dto.LectureApplyHistoryDto
+import com.example.hhpluslectureapply.exception.LectureException
 import com.example.hhpluslectureapply.usecase.lecture.dto.LectureApplyInfo
 import com.example.hhpluslectureapply.usecase.lecture.dto.LectureInfo
-import com.example.hhpluslectureapply.exception.LectureException
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
@@ -18,7 +19,7 @@ class LectureFacade(
 	/**
 	 * 특강 신청하기 메서드
 	 */
-	@Transactional
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	fun applyLecture(lectureApplyInfo: LectureApplyInfo) {
 		val lectureId = lectureApplyInfo.lectureId
 		val userId = lectureApplyInfo.userId
