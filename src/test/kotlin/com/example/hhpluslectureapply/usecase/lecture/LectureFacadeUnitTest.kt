@@ -5,6 +5,7 @@ import com.example.hhpluslectureapply.domain.lecture.LectureService
 import com.example.hhpluslectureapply.domain.lecture.dto.LectureApplyHistoryDto
 import com.example.hhpluslectureapply.domain.lecture.dto.LectureDto
 import com.example.hhpluslectureapply.exception.LectureException
+import com.example.hhpluslectureapply.usecase.lecture.dto.LectureApplyInfo
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
 import org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy
 import org.junit.jupiter.api.Assertions.*
