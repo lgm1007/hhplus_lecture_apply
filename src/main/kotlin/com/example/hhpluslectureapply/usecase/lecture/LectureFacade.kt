@@ -1,6 +1,7 @@
 package com.example.hhpluslectureapply.usecase.lecture
 
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryService
+import com.example.hhpluslectureapply.domain.lecture.LectureOptionService
 import com.example.hhpluslectureapply.domain.lecture.LectureService
 import com.example.hhpluslectureapply.domain.lecture.dto.LectureApplyHistoryDto
 import com.example.hhpluslectureapply.exception.LectureException
@@ -14,6 +15,7 @@ import java.time.LocalDateTime
 @Component
 class LectureFacade(
 	private val lectureService: LectureService,
+	private val lectureOptionService: LectureOptionService,
 	private val lectureApplyHistoryService: LectureApplyHistoryService
 ) {
 	/**
@@ -24,12 +26,12 @@ class LectureFacade(
 		val lectureId = lectureApplyInfo.lectureId
 		val userId = lectureApplyInfo.userId
 
-		val lecture = lectureService.getLectureInfoWithLockById(lectureId)
-		if (lecture.isFullCurrentApplicantsMaxApply()) {
+		val lectureOption = lectureOptionService.findByLectureIdWithLock(lectureId)
+		if (lectureOption.isFullCurrentApplicantsMaxApply()) {
 			throw LectureException("특강 아이디가 ${lectureId}에 해당하는 특강은 신청 정원이 마감되었습니다.")
 		}
 
-		lectureService.updateCurrentApplicantsIncrease(lectureId)
+		lectureOptionService.updateIncreaseLectureCurrentApplicants(lectureId)
 		lectureApplyHistoryService.insertOrUpdate(LectureApplyHistoryDto.from(lectureApplyInfo))
 	}
 
@@ -40,11 +42,19 @@ class LectureFacade(
 	fun getAllAppliableLectures(): List<LectureInfo> {
 		val nowDate = LocalDateTime.now();
 
-		return lectureService.getAllLecturesByApplicationDateBefore(nowDate).filter {
-			!lectureApplyHistoryService.isFullCountLectureMaxApply(it.lectureId)
-		}.map {
-			LectureInfo.from(it)
+		val lectureOptions = lectureOptionService.getAllLecturesByApplicationDateBefore(nowDate).filter {
+			!it.isFullCurrentApplicantsMaxApply()
 		}.toList()
+
+		val lectures = lectureService.getAllLecturesByIds(lectureOptions.map { it.lectureId }.toList())
+
+		return lectures.mapNotNull { lecture ->
+			val lectureOption = lectureOptions.find { it.lectureId == lecture.lectureId }
+
+			lectureOption?.let {
+				LectureInfo.of(lecture, it)
+			}
+		}
 	}
 
 	/**
@@ -53,8 +63,16 @@ class LectureFacade(
 	fun getAllLecturesByUserApplied(userId: Long): List<LectureInfo> {
 		val lectureIds = lectureApplyHistoryService.getAllHistoriesByUserId(userId).map { it.lectureId }.toList()
 
-		return lectureService.getAllLecturesByIds(lectureIds).map {
-			LectureInfo.from(it)
-		}.toList()
+		val lectureOptions = lectureOptionService.getAllLecturesByLectureIds(lectureIds)
+
+		val lectures = lectureService.getAllLecturesByIds(lectureIds)
+
+		return lectures.mapNotNull { lecture ->
+			val lectureOption = lectureOptions.find { it.lectureId == lecture.lectureId }
+
+			lectureOption?.let {
+				LectureInfo.of(lecture, it)
+			}
+		}
 	}
 }

@@ -4,7 +4,6 @@ import com.example.hhpluslectureapply.domain.lecture.dto.LectureDto
 import com.example.hhpluslectureapply.exception.LectureException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.time.LocalDateTime
 
 @Service
 class LectureService(
@@ -16,30 +15,6 @@ class LectureService(
 	fun getLectureInfoById(lectureId: Long): LectureDto {
 		val lecture = lectureRepository.findById(lectureId) ?: throw LectureException("ID: ${lectureId}에 해당하는 특강이 존재하지 않습니다.")
 		return LectureDto.from(lecture)
-	}
-
-	/**
-	 * 특강 아이디 값으로 Lock이 걸린 특강 단건을 조회하는 메서드
-	 */
-	fun getLectureInfoWithLockById(lectureId: Long): LectureDto {
-		val lecture = lectureRepository.findByIdWithLock(lectureId) ?: throw LectureException("ID: ${lectureId}에 해당하는 특강이 존재하지 않습니다.")
-		return LectureDto.from(lecture)
-	}
-
-	/**
-	 * 특강을 신청한 인원 수 1 증가 업데이트하는 메서드
-	 */
-	fun updateCurrentApplicantsIncrease(lectureId: Long): LectureDto {
-		return LectureDto.from(lectureRepository.updateCurrentApplicantsById(lectureId))
-	}
-
-	/**
-	 * 조회하는 현재 날짜 기준으로 신청 가능 날짜가 지나지 않은 특강 목록 조회하는 메서드
-	 */
-	fun getAllLecturesByApplicationDateBefore(nowDate: LocalDateTime): List<LectureDto> {
-		return lectureRepository.findAllByApplicationDateBefore(nowDate).map {
-			LectureDto.from(it)
-		}.toList()
 	}
 
 	/**
