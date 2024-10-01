@@ -17,6 +17,7 @@ class LectureFacade(
 	 * 특강 신청하기 메서드
 	 */
 	fun applyLecture(lectureApplyInfo: LectureApplyInfo) {
+		lectureService.updateCurrentApplicantsIncrease(lectureApplyInfo.lectureId)
 		lectureApplyHistoryService.insertOrUpdate(LectureApplyHistoryDto.from(lectureApplyInfo))
 	}
 

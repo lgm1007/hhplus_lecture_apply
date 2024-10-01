@@ -55,8 +55,8 @@ class LectureFacadeUnitTest {
 
 	private fun givenLectures(): List<LectureDto> {
 		return listOf(
-			LectureDto(1L, "title1", "강사1", LocalDateTime.now()),
-			LectureDto(2L, "title2", "강사2", LocalDateTime.now())
+			LectureDto(1L, "title1", "강사1", 0, LocalDateTime.now()),
+			LectureDto(2L, "title2", "강사2", 0, LocalDateTime.now())
 		)
 	}
 
