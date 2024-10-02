@@ -37,4 +37,8 @@ class LectureOptionRepositoryImpl(
 	override fun insertOrUpdate(lectureOptionDto: LectureOptionDto): LectureOption {
 		return jpaRepository.save(LectureOption.from(lectureOptionDto))
 	}
+
+	override fun deleteAll() {
+		jpaRepository.deleteAll()
+	}
 }

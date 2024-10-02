@@ -11,4 +11,6 @@ interface LectureApplyHistoryRepository {
 	fun countApplyHistoriesByLectureId(lectureId: Long): Int
 
 	fun insertOrUpdate(lectureApplyHistoryDto: LectureApplyHistoryDto): LectureApplyHistory
+
+	fun deleteAll()
 }

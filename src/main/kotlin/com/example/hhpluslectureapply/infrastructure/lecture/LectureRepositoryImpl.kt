@@ -21,4 +21,8 @@ class LectureRepositoryImpl(
 	override fun insertOrUpdate(lectureDto: LectureDto): Lecture {
 		return jpaRepository.save(Lecture.from(lectureDto))
 	}
+
+	override fun deleteAll() {
+		jpaRepository.deleteAll()
+	}
 }

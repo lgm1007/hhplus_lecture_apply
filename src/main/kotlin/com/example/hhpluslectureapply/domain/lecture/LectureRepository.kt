@@ -9,4 +9,6 @@ interface LectureRepository {
 	fun findAllByIdsIn(ids: List<Long>): List<Lecture>
 
 	fun insertOrUpdate(lectureDto: LectureDto): Lecture
+
+	fun deleteAll()
 }
