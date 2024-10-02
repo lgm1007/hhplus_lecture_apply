@@ -19,5 +19,15 @@ data class LectureInfo(
 				lectureOptionDto.applicationDate
 			)
 		}
+
+		fun listOf(lectureDtos: List<LectureDto>, lectureOptionDtos: List<LectureOptionDto>): List<LectureInfo> {
+			return lectureDtos.mapNotNull { lecture ->
+				val lectureOption = lectureOptionDtos.find { it.lectureId == lecture.lectureId }
+
+				lectureOption?.let {
+					of(lecture, it)
+				}
+			}
+		}
 	}
 }

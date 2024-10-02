@@ -48,13 +48,7 @@ class LectureFacade(
 
 		val lectures = lectureService.getAllLecturesByIds(lectureOptions.map { it.lectureId }.toList())
 
-		return lectures.mapNotNull { lecture ->
-			val lectureOption = lectureOptions.find { it.lectureId == lecture.lectureId }
-
-			lectureOption?.let {
-				LectureInfo.of(lecture, it)
-			}
-		}
+		return LectureInfo.listOf(lectures, lectureOptions)
 	}
 
 	/**
@@ -67,12 +61,6 @@ class LectureFacade(
 
 		val lectures = lectureService.getAllLecturesByIds(lectureIds)
 
-		return lectures.mapNotNull { lecture ->
-			val lectureOption = lectureOptions.find { it.lectureId == lecture.lectureId }
-
-			lectureOption?.let {
-				LectureInfo.of(lecture, it)
-			}
-		}
+		return LectureInfo.listOf(lectures, lectureOptions)
 	}
 }
