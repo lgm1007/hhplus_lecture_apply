@@ -1,6 +1,5 @@
 package com.example.hhpluslectureapply.usecase.lecture
 
-import com.example.hhpluslectureapply.DatabaseInitializer
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryRepository
 import com.example.hhpluslectureapply.domain.lecture.LectureOptionRepository
 import com.example.hhpluslectureapply.domain.lecture.LectureRepository
@@ -8,6 +7,7 @@ import com.example.hhpluslectureapply.domain.lecture.dto.LectureDto
 import com.example.hhpluslectureapply.domain.lecture.dto.LectureOptionDto
 import com.example.hhpluslectureapply.usecase.lecture.dto.LectureApplyInfo
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,16 +19,15 @@ import java.util.concurrent.atomic.AtomicInteger
 
 @SpringBootTest
 class LectureFacadeIntegrationTest {
-	@Autowired private lateinit var databaseInitializer: DatabaseInitializer
 	@Autowired private lateinit var lectureFacade: LectureFacade
 	@Autowired private lateinit var lectureRepository: LectureRepository
 	@Autowired private lateinit var lectureOptionRepository: LectureOptionRepository
 	@Autowired private lateinit var lectureApplyHistoryRepository: LectureApplyHistoryRepository
 
-//	@AfterEach
-//	fun setUp() {
-//		databaseInitializer.initializeDatabase()
-//	}
+	@BeforeEach
+	fun setUp() {
+		lectureRepository.deleteAll()
+	}
 
 	@Test
 	@DisplayName("특강 실패 케이스 - 동시에 동일한 특강을 40명이 신청했을 때, 30명만 성공하는 것 검증")
