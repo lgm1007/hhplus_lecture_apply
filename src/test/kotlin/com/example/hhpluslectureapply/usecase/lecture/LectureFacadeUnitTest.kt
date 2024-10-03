@@ -35,11 +35,13 @@ class LectureFacadeUnitTest {
 	@InjectMocks
 	lateinit var lectureFacade: LectureFacade
 
+	val MAX_NUMBER_APPLY_LECTURE = 30
+
 	@Test
 	@DisplayName("특강 신청 시 해당 특강의 신청 정원이 초과된 경우에 대한 예외케이스")
 	fun shouldFailMaxLectureApplyNumber() {
 		`when`(lectureOptionService.findByLectureIdWithLock(any()))
-			.thenReturn(LectureOptionDto(1L, LocalDateTime.now(), 30))
+			.thenReturn(LectureOptionDto(1L, LocalDateTime.now(), MAX_NUMBER_APPLY_LECTURE))
 
 		assertThatThrownBy {
 			lectureFacade.applyLecture(LectureApplyInfo(1L, 1L))
