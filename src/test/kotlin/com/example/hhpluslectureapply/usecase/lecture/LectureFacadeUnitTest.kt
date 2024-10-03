@@ -33,7 +33,7 @@ class LectureFacadeUnitTest {
 		`when`(lectureApplyHistoryService.isNotFullCountLectureMaxApply(any()))
 			.thenReturn(false)
 
-		`when`(lectureService.getAllLecturesByApplicationDateBefore(any()))
+		`when`(lectureService.getAllLecturesByApplicationDateAfter(any()))
 			.thenReturn(givenLectures())
 
 		val actual = lectureFacade.getAllAppliableLectures()

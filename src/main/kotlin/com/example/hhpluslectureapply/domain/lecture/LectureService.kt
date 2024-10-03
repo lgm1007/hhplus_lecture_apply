@@ -25,8 +25,8 @@ class LectureService(
 	/**
 	 * 조회하는 현재 날짜 기준으로 신청 가능 날짜가 지나지 않은 특강 목록 조회하는 메서드
 	 */
-	fun getAllLecturesByApplicationDateBefore(nowDate: LocalDateTime): List<LectureDto> {
-		return lectureRepository.findAllByApplicationDateBefore(nowDate).map {
+	fun getAllLecturesByApplicationDateAfter(nowDate: LocalDateTime): List<LectureDto> {
+		return lectureRepository.findAllByApplicationDateAfter(nowDate).map {
 			LectureDto.from(it)
 		}.toList()
 	}

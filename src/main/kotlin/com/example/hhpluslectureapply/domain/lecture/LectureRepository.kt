@@ -9,7 +9,7 @@ interface LectureRepository {
 
 	fun updateCurrentApplicantsById(id: Long): Lecture
 
-	fun findAllByApplicationDateBefore(nowDate: LocalDateTime): List<Lecture>
+	fun findAllByApplicationDateAfter(nowDate: LocalDateTime): List<Lecture>
 
 	fun findAllByIdsIn(ids: List<Long>): List<Lecture>
 

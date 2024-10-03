@@ -49,10 +49,10 @@ class LectureServiceUnitTest {
 				Lecture(1L, "lecture1", "홍길동", invocation.getArgument<LocalDateTime>(0).plusDays(1)),
 				Lecture(2L, "lecture2", "정몽준", invocation.getArgument<LocalDateTime>(0).plusDays(2))
 			)
-		}.`when`(lectureRepository).findAllByApplicationDateBefore(any())
+		}.`when`(lectureRepository).findAllByApplicationDateAfter(any())
 
 		val nowDate = LocalDateTime.now()
-		val actual = lectureService.getAllLecturesByApplicationDateBefore(nowDate)
+		val actual = lectureService.getAllLecturesByApplicationDateAfter(nowDate)
 
 		assertAll(
 			{ assertThat(actual.size).isEqualTo(2) },

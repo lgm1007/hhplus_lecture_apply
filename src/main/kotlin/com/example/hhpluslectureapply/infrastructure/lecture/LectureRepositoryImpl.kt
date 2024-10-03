@@ -24,8 +24,8 @@ class LectureRepositoryImpl(
 		return jpaRepository.save(lecture)
 	}
 
-	override fun findAllByApplicationDateBefore(nowDate: LocalDateTime): List<Lecture> {
-		return jpaRepository.findDistinctByApplicationDateBefore(nowDate)
+	override fun findAllByApplicationDateAfter(nowDate: LocalDateTime): List<Lecture> {
+		return jpaRepository.findDistinctByApplicationDateAfter(nowDate)
 	}
 
 	override fun findAllByIdsIn(ids: List<Long>): List<Lecture> {
