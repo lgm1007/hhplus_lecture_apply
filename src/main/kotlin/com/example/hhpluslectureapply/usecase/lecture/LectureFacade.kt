@@ -42,7 +42,7 @@ class LectureFacade(
 	fun getAllAppliableLectures(): List<LectureInfo> {
 		val nowDate = LocalDateTime.now();
 
-		val lectureOptions = lectureOptionService.getAllLecturesByApplicationDateBefore(nowDate).filter {
+		val lectureOptions = lectureOptionService.getAllLecturesByApplicationDateAfter(nowDate).filter {
 			!it.isFullCurrentApplicantsMaxApply()
 		}.toList()
 
