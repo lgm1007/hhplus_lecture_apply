@@ -15,7 +15,7 @@ interface LectureOptionJpaRepository : JpaRepository<LectureOption, Long> {
 	@Query("SELECT lo FROM LectureOption lo WHERE lo.lectureId = :lectureId")
 	fun findByLectureIdWithLock(@Param("lectureId") lectureId: Long): LectureOption?
 
-	fun findDistinctByApplicationDateBefore(nowDate: LocalDateTime): List<LectureOption>
+	fun findDistinctByApplicationDateAfter(nowDate: LocalDateTime): List<LectureOption>
 
 	fun findAllByLectureIdIn(lectureIds: List<Long>): List<LectureOption>
 }
