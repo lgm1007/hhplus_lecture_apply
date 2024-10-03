@@ -64,6 +64,39 @@ class LectureFacadeIntegrationTest {
 	}
 
 	@Test
+	@DisplayName("특강 실패 케이스 - 같은 userId가 같은 특강을 여러 번 신청할 때 최초 한 번만 성공하는 것 검증")
+	fun shouldPassOnceWithSameUserId() {
+		lectureRepository.insertOrUpdate(LectureDto(1L, "Lecture Title", "강사명1"))
+		lectureOptionRepository.insertOrUpdate(LectureOptionDto(1L, LocalDateTime.now().plusDays(1), 0))
+
+		val executor = Executors.newFixedThreadPool(5)
+		val lectureLatch = CountDownLatch(5)
+		val successfulApplies = AtomicInteger(0)
+
+		try {
+			repeat(5) {
+				executor.submit {
+					try {
+						lectureFacade.applyLecture(LectureApplyInfo(1L, 1L))
+						successfulApplies.incrementAndGet()
+					} finally {
+						lectureLatch.countDown()
+					}
+				}
+			}
+
+			lectureLatch.await()
+
+			val actual = lectureApplyHistoryRepository.countApplyHistoriesByLectureId(1L)
+
+			assertThat(actual).isEqualTo(1)
+			assertThat(successfulApplies.get()).isEqualTo(1)
+		} finally {
+			executor.shutdown()
+		}
+	}
+
+	@Test
 	@DisplayName("현재 신청 가능한 특강 목록을 조회하는 기능 테스트 - 신청 가능 특강: 신청 일자가 지나지 않았으면서 현재 신청 정원이 초과되지 않은 특강")
 	fun getAllAppliableLectures() {
 		val MAX_NUMBER_APPLY_LECTURE = 30
