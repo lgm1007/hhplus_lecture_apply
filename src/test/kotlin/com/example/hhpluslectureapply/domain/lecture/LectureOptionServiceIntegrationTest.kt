@@ -51,6 +51,24 @@ class LectureOptionServiceIntegrationTest {
 	}
 
 	@Test
+	@DisplayName("조회하는 날짜 기준으로 신청 가능 날짜가 지나지 않은 특강 목록 조회하기")
+	fun getAllLecturesByApplicationDateAfter() {
+		val minusDays = LocalDateTime.now().minusDays(1)
+		val plusDays = LocalDateTime.now().plusDays(1)
+
+		lectureOptionRepository.insertOrUpdate(LectureOptionDto(1L, plusDays, 0))
+		lectureOptionRepository.insertOrUpdate(LectureOptionDto(2L, plusDays, 0))
+		lectureOptionRepository.insertOrUpdate(LectureOptionDto(3L, minusDays, 0))
+
+		val actual =
+			lectureOptionService.getAllLecturesByApplicationDateAfter(LocalDateTime.now())
+
+		assertThat(actual.size).isEqualTo(2)
+		assertThat(actual[0].lectureId).isEqualTo(1L)
+		assertThat(actual[1].lectureId).isEqualTo(2L)
+	}
+
+	@Test
 	@DisplayName("특강 ID 리스트로 특강 정보 목록을 조회하는 메서드 - select where in")
 	fun getAllLecturesByLectureIds() {
 		insertLectureOptionsBySize(10)
