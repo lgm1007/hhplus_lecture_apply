@@ -3,6 +3,7 @@ package com.example.hhpluslectureapply.usecase.lecture
 import com.example.hhpluslectureapply.domain.lecture.LectureApplyHistoryRepository
 import com.example.hhpluslectureapply.domain.lecture.LectureOptionRepository
 import com.example.hhpluslectureapply.domain.lecture.LectureRepository
+import com.example.hhpluslectureapply.domain.lecture.dto.LectureApplyHistoryDto
 import com.example.hhpluslectureapply.domain.lecture.dto.LectureDto
 import com.example.hhpluslectureapply.domain.lecture.dto.LectureOptionDto
 import com.example.hhpluslectureapply.usecase.lecture.dto.LectureApplyInfo
@@ -80,6 +81,27 @@ class LectureFacadeIntegrationTest {
 		val actual = lectureFacade.getAllAppliableLectures()
 
 		assertThat(actual.size).isEqualTo(1)
+		assertThat(actual[0].lectureId).isEqualTo(3L)
+		assertThat(actual[0].title).isEqualTo("Lecture Title3")
+		assertThat(actual[0].lecturer).isEqualTo("강사명3")
+	}
+
+	@Test
+	@DisplayName("사용자 아이디로 신청한 특강 목록을 조회하는 기능 테스트")
+	fun getAllLecturesByUserApplied() {
+		lectureRepository.insertOrUpdate(LectureDto(1L, "Lecture Title1", "강사명1"))
+		lectureRepository.insertOrUpdate(LectureDto(2L, "Lecture Title2", "강사명2"))
+		lectureRepository.insertOrUpdate(LectureDto(3L, "Lecture Title3", "강사명3"))
+
+		lectureOptionRepository.insertOrUpdate(LectureOptionDto(1L, LocalDateTime.now(), 0))
+		lectureOptionRepository.insertOrUpdate(LectureOptionDto(2L, LocalDateTime.now(), MAX_NUMBER_APPLY_LECTURE))
+		lectureOptionRepository.insertOrUpdate(LectureOptionDto(3L, LocalDateTime.now(), MAX_NUMBER_APPLY_LECTURE))
+
+		lectureApplyHistoryRepository.insertOrUpdate(LectureApplyHistoryDto(3L, 1L))
+
+		val actual = lectureFacade.getAllLecturesByUserApplied(1L)
+
+		assertThat(actual.size).isEqualTo(1L)
 		assertThat(actual[0].lectureId).isEqualTo(3L)
 		assertThat(actual[0].title).isEqualTo("Lecture Title3")
 		assertThat(actual[0].lecturer).isEqualTo("강사명3")
