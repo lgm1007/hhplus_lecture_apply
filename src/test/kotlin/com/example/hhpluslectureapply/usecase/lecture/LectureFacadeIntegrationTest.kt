@@ -25,6 +25,8 @@ class LectureFacadeIntegrationTest {
 	@Autowired private lateinit var lectureOptionRepository: LectureOptionRepository
 	@Autowired private lateinit var lectureApplyHistoryRepository: LectureApplyHistoryRepository
 
+	val MAX_NUMBER_APPLY_LECTURE = 30
+
 	@BeforeEach
 	fun setUp() {
 		lectureRepository.deleteAll()
@@ -56,8 +58,8 @@ class LectureFacadeIntegrationTest {
 
 			val actual = lectureApplyHistoryRepository.countApplyHistoriesByLectureId(1L)
 
-			assertThat(actual).isEqualTo(30)
-			assertThat(successfulApplies.get()).isEqualTo(30)
+			assertThat(actual).isEqualTo(MAX_NUMBER_APPLY_LECTURE)
+			assertThat(successfulApplies.get()).isEqualTo(MAX_NUMBER_APPLY_LECTURE)
 		} finally {
 			executor.shutdown()
 		}
@@ -66,7 +68,6 @@ class LectureFacadeIntegrationTest {
 	@Test
 	@DisplayName("현재 신청 가능한 특강 목록을 조회하는 기능 테스트 - 신청 가능 특강: 신청 일자가 지나지 않았으면서 현재 신청 정원이 초과되지 않은 특강")
 	fun getAllAppliableLectures() {
-		val MAX_NUMBER_APPLY_LECTURE = 30
 		val nowMinusDay = LocalDateTime.now().minusDays(1)
 		val nowPlusDay = LocalDateTime.now().plusDays(1)
 
