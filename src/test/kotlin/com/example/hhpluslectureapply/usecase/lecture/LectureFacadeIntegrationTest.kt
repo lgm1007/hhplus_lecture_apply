@@ -61,4 +61,27 @@ class LectureFacadeIntegrationTest {
 			executor.shutdown()
 		}
 	}
+
+	@Test
+	@DisplayName("현재 신청 가능한 특강 목록을 조회하는 기능 테스트 - 신청 가능 특강: 신청 일자가 지나지 않았으면서 현재 신청 정원이 초과되지 않은 특강")
+	fun getAllAppliableLectures() {
+		val MAX_NUMBER_APPLY_LECTURE = 30
+		val nowMinusDay = LocalDateTime.now().minusDays(1)
+		val nowPlusDay = LocalDateTime.now().plusDays(1)
+
+		lectureRepository.insertOrUpdate(LectureDto(1L, "Lecture Title1", "강사명1"))
+		lectureRepository.insertOrUpdate(LectureDto(2L, "Lecture Title2", "강사명2"))
+		lectureRepository.insertOrUpdate(LectureDto(3L, "Lecture Title3", "강사명3"))
+
+		lectureOptionRepository.insertOrUpdate(LectureOptionDto(1L, nowMinusDay, 0))
+		lectureOptionRepository.insertOrUpdate(LectureOptionDto(2L, nowPlusDay, MAX_NUMBER_APPLY_LECTURE))
+		lectureOptionRepository.insertOrUpdate(LectureOptionDto(3L, nowPlusDay, 0))
+
+		val actual = lectureFacade.getAllAppliableLectures()
+
+		assertThat(actual.size).isEqualTo(1)
+		assertThat(actual[0].lectureId).isEqualTo(3L)
+		assertThat(actual[0].title).isEqualTo("Lecture Title3")
+		assertThat(actual[0].lecturer).isEqualTo("강사명3")
+	}
 }
