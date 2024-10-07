@@ -4,9 +4,15 @@ import com.example.hhpluslectureapply.domain.lecture.dto.LectureApplyHistoryDto
 import com.example.hhpluslectureapply.infrastructure.lecture.entity.LectureApplyHistory
 
 interface LectureApplyHistoryRepository {
+	fun findByLectureIdAndUserIdWithLock(lectureId: Long, userId: Long): LectureApplyHistory?
+
 	fun findAllByUserId(userId: Long): List<LectureApplyHistory>
 
-	fun countByLectureId(lectureId: Long): Int
+	fun findAllByLectureId(lectureId: Long): List<LectureApplyHistory>
+
+	fun countApplyHistoriesByLectureId(lectureId: Long): Int
 
 	fun insertOrUpdate(lectureApplyHistoryDto: LectureApplyHistoryDto): LectureApplyHistory
+
+	fun deleteAll()
 }

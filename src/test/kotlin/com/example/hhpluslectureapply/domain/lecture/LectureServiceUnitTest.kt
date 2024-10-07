@@ -11,7 +11,6 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.kotlin.*
-import java.time.LocalDateTime
 
 @ExtendWith(MockitoExtension::class)
 class LectureServiceUnitTest {
@@ -28,8 +27,7 @@ class LectureServiceUnitTest {
 			Lecture(
 				invocation.getArgument(0),
 				"lecture",
-				"홍길동",
-				LocalDateTime.of(2024, 9, 29, 12, 0)
+				"홍길동"
 			)
 		}.`when`(lectureRepository).findById(anyLong())
 
@@ -38,26 +36,6 @@ class LectureServiceUnitTest {
 		assertAll(
 			{ assertThat(actual.title).isEqualTo("lecture") },
 			{ assertThat(actual.lecturer).isEqualTo("홍길동") },
-		)
-	}
-
-	@Test
-	@DisplayName("신청 가능 날짜가 아직 지나지 않은 특강 목록을 조회하기")
-	fun getAllLecturesByApplicationDateBefore() {
-		doAnswer { invocation ->
-			listOf<Lecture>(
-				Lecture(1L, "lecture1", "홍길동", invocation.getArgument<LocalDateTime>(0).plusDays(1)),
-				Lecture(2L, "lecture2", "정몽준", invocation.getArgument<LocalDateTime>(0).plusDays(2))
-			)
-		}.`when`(lectureRepository).findAllByApplicationDateAfter(any())
-
-		val nowDate = LocalDateTime.now()
-		val actual = lectureService.getAllLecturesByApplicationDateAfter(nowDate)
-
-		assertAll(
-			{ assertThat(actual.size).isEqualTo(2) },
-			{ assertThat(actual[0].applicationDate).isAfter(nowDate) },
-			{ assertThat(actual[1].applicationDate).isAfter(nowDate) }
 		)
 	}
 }
