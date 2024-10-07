@@ -9,6 +9,16 @@ class LectureApplyHistoryService(
 	private val lectureApplyHistoryRepository: LectureApplyHistoryRepository,
 ) {
 	/**
+	 * PESSIMISTIC_WRITE Lock 을 걸고 특정 특강 아이디와 사용자 아이디로 특강 신청 내역 레코드를 조회하는 메서드
+	 */
+	fun getHistoryByLectureIdAndUserIdWithLock(lectureId: Long, userId: Long): LectureApplyHistoryDto? {
+		val lectureApplyHistory = lectureApplyHistoryRepository.findByLectureIdAndUserIdWithLock(lectureId, userId)
+			?: return null
+
+		return LectureApplyHistoryDto.from(lectureApplyHistory)
+	}
+
+	/**
 	 * 사용자 아이디로 특강 신청 내역 목록 조회하는 메서드
 	 */
 	fun getAllHistoriesByUserId(userId: Long): List<LectureApplyHistoryDto> {

@@ -31,6 +31,12 @@ class LectureFacade(
 			throw LectureException("특강 아이디가 ${lectureId}에 해당하는 특강은 신청 정원이 마감되었습니다.")
 		}
 
+		val lectureApplyHistory = lectureApplyHistoryService.getHistoryByLectureIdAndUserIdWithLock(lectureId, userId)
+		if (lectureApplyHistory != null) {
+			throw LectureException("사용자 ${userId}는 이미 해당 아이디인 ${lectureId} 특강을 신청했습니다.")
+		}
+
+
 		lectureOptionService.updateIncreaseLectureCurrentApplicants(lectureId)
 		lectureApplyHistoryService.insertOrUpdate(LectureApplyHistoryDto.from(lectureApplyInfo))
 	}

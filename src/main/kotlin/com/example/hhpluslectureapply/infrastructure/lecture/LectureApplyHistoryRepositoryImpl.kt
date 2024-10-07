@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository
 class LectureApplyHistoryRepositoryImpl(
 	private val jpaRepository: LectureApplyHistoryJpaRepository
 ) : LectureApplyHistoryRepository {
+	override fun findByLectureIdAndUserIdWithLock(lectureId: Long, userId: Long): LectureApplyHistory? {
+		return jpaRepository.findByLectureIdAndUserIdWithLock(lectureId, userId)
+	}
+
 	override fun findAllByUserId(userId: Long): List<LectureApplyHistory> {
 		return jpaRepository.findAllByUserId(userId)
 	}
